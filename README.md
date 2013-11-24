@@ -1,4 +1,4 @@
-C_Learning
+C_Learning_h.w.
 ==========
 
-This repository is for my learning of c, which composed of codes about CS101 homework.
+This repository is for my CS101 homework.
