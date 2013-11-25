@@ -1,0 +1,39 @@
+#include <stdio.h>
+ #include <stdlib.h>
+ int main()
+ {
+ int i=0,j=0,row_1,col_1;
+ int **ptr1=NULL;
+ 
+ //create first matrix[row_1][col_1]
+ 
+ while (scanf("%d %d",&row_1,&col_1)!=EOF) {
+ ptr1=(int**)malloc(sizeof(int*)*row_1);
+ for (i=0; i<row_1; i++) {
+ ptr1[i]=(int*)malloc(sizeof(int)*col_1);
+ }
+ //enter data into first matrix.
+ 
+ for (i=0; i<row_1; i++) {
+ for (j=0; j<col_1; j++) {
+ scanf("%d",&ptr1[i][j]);
+ }
+ }
+     printf("Row-major:");
+     for (i=0; i<row_1; i++) {
+         for (j=0; j<col_1; j++) {
+             printf(" %d",ptr1[i][j]);
+         }
+     }
+     printf("\n");
+     printf("Column-major:");
+     for (j=0; j<col_1; j++) {
+         for (i=0; i<row_1; i++) {
+             printf(" %d",ptr1[i][j]);
+         }
+     }
+ 
+     printf("\n");
+ }
+ return 0;
+ }
