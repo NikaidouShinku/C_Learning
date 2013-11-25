@@ -1,0 +1,29 @@
+//
+//  main.c
+//  3-5
+//
+//  Created by Hsieh Yu Hua on 13/10/24.
+//  Copyright (c) 2013年 Hsieh Yu Hua_NTHU_s102062210. All rights reserved.
+//
+
+#include <stdio.h>
+int is_prime(int n);
+int main()
+{
+    int test;
+    while (scanf("%d",&test)!=EOF) {
+        if (is_prime(test)) {
+            printf("yes\n");
+        }
+        else
+            printf("no\n");
+    }
+}
+int is_prime(int n)
+{
+    for (int i=2; i<=(n/2); i++) {
+        if (n%i==0) {
+            return 0;
+        }
+    }
+  
