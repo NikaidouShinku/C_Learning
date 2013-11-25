@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <stdlib.h>
+void main()
+{
+        int i=0,j=0,n;
+        int **ptr2=NULL,**ptr1=NULL;
+while(scanf("%d\n",&n)!=EOF)
+{
+        //N*N陣列
+        ptr2=(int**)malloc(sizeof(int*)*n);//二為動態陣列
+        for(i=0;i<n;i++)
+        {
+                ptr2[i]=(int*)malloc(sizeof(int)*n);
+        }
+        ptr1=(int**)malloc(sizeof(int*)*n);//二為動態陣列
+        for(i=0;i<n;i++)
+        {
+                ptr1[i]=(int*)malloc(sizeof(int)*n);
+        }
+
+        int in=0;//輸入第一個陣列資料
+        for(i=0;i<n;i++)
+    {
+        for(j=0;j<n;j++)
+        {
+            scanf("%d",&ptr1[i][j]);
+        }
+        }
+
+        //輸入第二個陣列資料
+        for(i=0;i<n;i++)
+    {
+        for(j=0;j<n;j++)
+        {
+             scanf("%d",&ptr2[i][j]);
+        }
+        }
+        for(i=0;i<n;i++)//把兩個陣列一一加法運算
+                for(j=0;j<n;j++)
+                {
+                        ptr1[i][j]=ptr2[i][j]+ptr1[i][j];
+                }
+        for(i=0;i<n;i++)
+    {//把兩個陣列一一輸出運算
+                for(j=0;j<n;j++)
+                {
+                        printf("%d",ptr1[i][j]);
+                        if(j<n)
+            {
+                printf(" ");
+            }
+                }
+                printf("\n");
+    }
+    }
+}
