@@ -1,0 +1,11 @@
+#include <stdio.h>
+void main()
+{
+    int year,j;
+    while(scanf("%d",&year)!=EOF)
+    {
+        j=(year%4==0&&year%100!=0)||(year%400==0);
+        if(j==1) printf("yes\n");
+        else printf("no\n");
+    }
+}
