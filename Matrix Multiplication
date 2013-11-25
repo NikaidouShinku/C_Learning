@@ -1,0 +1,51 @@
+#define MAX 10
+void MatrixMutiply(int m,int n,int p,long str1[MAX][MAX],
+                   long str2[MAX][MAX],long str3[MAX][MAX])
+{
+    int i,j,k,temp;
+        for(i=0;i<m;i++)
+        for(j=0;j<p;j++)
+        {
+            temp=0;
+            for(k=0;k<n;k++)
+                temp+=str1[i][k]*str2[k][j];
+            str3[i][j]=temp;
+        }
+}
+#include <stdio.h>
+#include <stdlib.h>
+void main()
+{
+    long str1[MAX][MAX],str2[MAX][MAX];
+    long str3[MAX][MAX],temp;
+    int i,j,m,n,p;
+    
+    while(scanf("%d %d",&m,&n)!=EOF)
+    {
+        for(i=0;i<m;i++)
+            for(j=0;j<n;j++)
+            {
+                scanf("%ld",&temp);
+                str1[i][j]=temp;
+            }
+        scanf("%d %d",&n,&p);
+        for(i=0;i<n;i++)
+            for(j=0;j<p;j++)
+            {
+                scanf("%ld",&temp);
+                str2[i][j]=temp;
+            }
+        MatrixMutiply(m,n,p,str1,str2,str3);
+        for(i=0;i<m;i++)
+        {
+            for(j=0;j<p;j++)
+            {
+                printf("%ld",str3[i][j]);
+                if (j<p-1) {
+                    printf(" ");
+                }
+            }
+            printf("\n");
+        }
+    }
+}
