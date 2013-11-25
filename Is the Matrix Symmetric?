@@ -1,0 +1,28 @@
+Problem Description
+Write a program to determine whether this N x N matrix symmetric or not
+
+May contain negative number
+
+N < 10 (N is an integer)
+
+Input
+The input data will contain multiple test cases. Each test case will contain:
+
+N
+
+Matrix
+
+Output
+Symmetric or Non-symmetric
+
+Sample Input
+2
+1 2
+2 1
+3
+1 0 6 
+9 8 3 
+6 7 1
+Sample Output
+Symmetric  
+Non-symmetric
