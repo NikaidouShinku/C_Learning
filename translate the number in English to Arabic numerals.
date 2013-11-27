@@ -12,6 +12,31 @@
 int main(int argc, const char * argv[])
 {
     
+    char str2[20][12]={0};//Use to store input character
+    int i = 0;
+    long int output[20]={0};//use to store output number,
+    int k=0;
+    int j=0;
+
+    
+    while (1) {
+        
+        memset(str2, 0, sizeof(str2));//重置0
+        i=0;//重置0
+        memset(output, 0, sizeof(output));//重置0
+        k=0;//重置0
+        
+    do {
+        i++;
+        if(scanf("%s",str2[i])==EOF){
+            return 0;
+        }
+    } while (strcmp(str2[i], "END")!=0);
+
+
+
+
+    /*
     while (1) {
         
     char str2[20][12]={""};//Use to store input character
@@ -24,6 +49,10 @@ int main(int argc, const char * argv[])
             return 0;
         }
     } while (strcmp(str2[i], "END")!=0);
+    
+    */
+    
+    
     
     
     //calculate the output
@@ -65,7 +94,7 @@ int main(int argc, const char * argv[])
         else if (strcmp(str2[j],"ELEVEN")==0){
             output[k]+=11;
         }
-        else if (strcmp(str2[j],"TEWLVE")==0){
+        else if (strcmp(str2[j],"TWELVE")==0){
             output[k]+=12;
         }
         else if (strcmp(str2[j],"THIRTEEN")==0){
