@@ -33,44 +33,77 @@ int main(int argc, const char * argv[])
 int compiler()
 {
     int i=0;
-    char buffer[10][10];
-    char output[100];
+    char buffer[10][10]={0};
+    char output[100]={0};
     FILE *fp;
-    fp=fopen("input.txt", "rt");
-    while(!feof(fp))//not the end of the file
+    fp=fopen("input1.txt", "rt");
+    while(fscanf(fp, "%s",buffer[i]))//not the end of the file
     {
-        fscanf(fp, "%s",buffer[i]);//load every line to buffer[10][10]
-        for (int j=0; j<strlen(buffer[i]); j++)//search the string, if there is any illegal char in the string, print error.
+//load every line to buffer[10][10]
+        ;
+        
+//search the string, if there is any illegal char in the string, print error.
+        for (int j=0; j<strlen(buffer[i]); j++)
         {
-            switch (buffer[i][j]) {
-                case '1':
-                    break;
-                case '2':
-                    break;
-                case '3':
-                    break;
-                case '4':
-                    break;
-                case '5':
-                    break;
-                case '6':
-                    break;
-                case '7':
-                    break;
-                case '8':
-                    break;
-                case '9':
-                    break;
-                case '+':
-                    break;
-                case '*':
-                    break;
-                case ';':
-                    break;
-                default:
-                    printf("ERROR");
-                    return 0;
-                    break;
+            /*size is wrong */
+            if ((strlen(buffer[i]))>6)
+            {
+                printf("ERROR:LINE %d",(i+1));
+                return 0;
+            }
+            /* operand shall be at the right places*/
+            if (j==0||j==2||j==4)
+            {
+                switch (buffer[i][j]) {
+                    case '1':
+                        break;
+                    case '2':
+                        break;
+                    case '3':
+                        break;
+                    case '4':
+                        break;
+                    case '5':
+                        break;
+                    case '6':
+                        break;
+                    case '7':
+                        break;
+                    case '8':
+                        break;
+                    case '9':
+                        break;
+                    default:
+                        printf("ERROR:LINE %d",(i+1));
+                        return 0;
+                        break;
+            }
+            }
+            /* operator shall be at the right places*/
+            if (j==1||j==3||j==5)
+            {
+                switch (buffer[i][j])
+                {
+                    case '+':
+                        break;
+                    case '-':
+                        break;
+                    case '*':
+                        break;
+                    case '/':
+                        break;
+                    case ';':
+                        if (strlen(buffer[i])>4)
+                        {
+                            printf("ERROR:LINE %d",(i+1));
+                            return 0;
+                        }
+                        break;
+                    default:
+                        printf("ERROR:LINE %d",(i+1));
+                        return 0;
+                        break;
+                }
             }
         }
         i++;
@@ -87,8 +120,9 @@ int compiler()
 
 void calculator()
 {
-    
+    ;
 }
+
 
 
 
