@@ -1,0 +1,95 @@
+//
+//  main.c
+//  PG5_102062210
+//
+//  Created by Hsieh Yu Hua on 2013/11/29.
+//  Copyright (c) 2013年 Hsieh Yu Hua_NTHU_s102062210. All rights reserved.
+//
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int compiler();
+void calculator();
+int main(int argc, const char * argv[])
+{
+    int door;
+    if (scanf("%d",&door)==1)
+    {
+        if (door==1)
+        {
+            compiler();
+        }
+        else if (door==2)
+        {
+            calculator();
+        }
+        else printf("input error");
+    }
+    return 0;
+}
+
+int compiler()
+{
+    int i=0;
+    char buffer[10][10];
+    char output[100];
+    FILE *fp;
+    fp=fopen("input.txt", "rt");
+    while(!feof(fp))//not the end of the file
+    {
+        fscanf(fp, "%s",buffer[i]);//load every line to buffer[10][10]
+        for (int j=0; j<strlen(buffer[i]); j++)//search the string, if there is any illegal char in the string, print error.
+        {
+            switch (buffer[i][j]) {
+                case '1':
+                    break;
+                case '2':
+                    break;
+                case '3':
+                    break;
+                case '4':
+                    break;
+                case '5':
+                    break;
+                case '6':
+                    break;
+                case '7':
+                    break;
+                case '8':
+                    break;
+                case '9':
+                    break;
+                case '+':
+                    break;
+                case '*':
+                    break;
+                case ';':
+                    break;
+                default:
+                    printf("ERROR");
+                    return 0;
+                    break;
+            }
+        }
+        i++;
+    }
+    fclose(fp);
+    for (int j = 0; j<=i; j++)
+    {
+        strcpy(output,buffer[j]);//to combine all the string in different buffer .
+    }
+    printf("%s",output);
+    return 0;
+    
+}
+
+void calculator()
+{
+    
+}
+
+
+
+
