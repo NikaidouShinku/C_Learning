@@ -12,6 +12,12 @@
 
 int compiler();
 void calculator();
+
+/*sub_function of compiler*/
+void trim(char *output);
+void print_out(char *output,FILE *f_out);
+ 
+
 int main(int argc, const char * argv[])
 {
     int door;
@@ -33,26 +39,42 @@ int main(int argc, const char * argv[])
 int compiler()
 {
     int i=0;
-    char buffer[10][10]={0};
-    char output[100]={0};
-    FILE *fp;
-    fp=fopen("input1.txt", "rt");
-    while(fscanf(fp, "%s",buffer[i]))//not the end of the file
+    char buffer[10][20]={0};
+    char output[200]={0};
+    FILE *fp,*f_out;
+    fp=fopen("/Users/Andy/Downloads/PG5_testcase-1/input1.txt", "rt");
+    
+    //load every line to buffer[10][10],and if there is an illegal condition,end program;
+    while(fgets(buffer[i], 14, fp))
     {
-//load every line to buffer[10][10]
-        ;
-        
-//search the string, if there is any illegal char in the string, print error.
-        for (int j=0; j<strlen(buffer[i]); j++)
+        int buffer_long=(int)strlen(buffer[i]);
+        /*size is wrong */
+        if (buffer_long!=9&&buffer_long!=13&&buffer_long!=11)
         {
-            /*size is wrong */
-            if ((strlen(buffer[i]))>6)
+            printf("ERROR:LINE %d",(i+1));
+            return 0;
+        }
+        /*the last word is not ;*/
+        if (buffer_long==9)
+        {
+            if (buffer[i][6]!=';')
             {
                 printf("ERROR:LINE %d",(i+1));
                 return 0;
             }
+        }
+        else if(buffer_long==13||buffer_long==11)
+        {
+            if (buffer[i][10]!=';') {
+                printf("ERROR:LINE %d",(i+1));
+                return 0;
+            }
+        }
+        //search the string, if there is any illegal char in the string, print error.
+        for (int j=0; j<buffer_long; j++)
+        {
             /* operand shall be at the right places*/
-            if (j==0||j==2||j==4)
+            if (j==0||j==4||j==8)
             {
                 switch (buffer[i][j]) {
                     case '1':
@@ -74,13 +96,15 @@ int compiler()
                     case '9':
                         break;
                     default:
-                        printf("ERROR:LINE %d",(i+1));
-                        return 0;
-                        break;
+                        if (buffer_long>9) {
+                            printf("ERROR:LINE %d",(i+1));
+                            return 0;
+                            break;
+                        }
             }
             }
             /* operator shall be at the right places*/
-            if (j==1||j==3||j==5)
+            if (j==2||j==6)
             {
                 switch (buffer[i][j])
                 {
@@ -93,11 +117,6 @@ int compiler()
                     case '/':
                         break;
                     case ';':
-                        if (strlen(buffer[i])>4)
-                        {
-                            printf("ERROR:LINE %d",(i+1));
-                            return 0;
-                        }
                         break;
                     default:
                         printf("ERROR:LINE %d",(i+1));
@@ -109,18 +128,129 @@ int compiler()
         i++;
     }
     fclose(fp);
-    for (int j = 0; j<=i; j++)
+    
+    //to combine all the string in different buffer .
+    for (int j = 0; j<i; j++)
     {
-        strcpy(output,buffer[j]);//to combine all the string in different buffer .
+        strcat(output,buffer[j]);
     }
-    printf("%s",output);
+    //trim the /r/n' '
+    trim(output);
+    
+    //print out as hex.
+    f_out=fopen("/Users/Andy/Downloads/PG5_testcase-1/output1.bin", "wb");
+    print_out(output,f_out);
     return 0;
+    
+}
+
+//trim the /r/n' '
+void trim(char *output)
+{
+    char buffer[200]={0};
+    int j=0;
+    for (int i=0; i<strlen(output); i++)
+    {
+        if (output[i]==' '||output[i]==10||output[i]==13)
+        {
+            continue;
+        }
+        else
+        {
+            buffer[j]=output[i];
+            j++;
+        }
+    }
+    for (int i=0; i<=j; i++) {
+        output[i]=buffer[i];
+    }
+}
+
+void print_out(char *output,FILE *f_out)
+{
+    int output_longness=(int)strlen(output);
+    for (int i=0; i<output_longness; i++)
+    {
+        switch (output[i]) {
+            case '0':
+                fputs("00", f_out);
+                break;
+            case '1':
+                fputs("01", f_out);
+                break;
+            case '2':
+                fputs("02", f_out);
+                break;
+            case '3':
+                fputs("03", f_out);
+                break;
+            case '4':
+                fputs("04", f_out);
+                break;
+            case '5':
+                fputs("05", f_out);
+                break;
+            case '6':
+                fputs("06", f_out);
+                break;
+            case '7':
+                fputs("07", f_out);
+                break;
+            case '8':
+                fputs("08", f_out);
+                break;
+            case '9':
+                fputs("09", f_out);
+                break;
+            case '+':
+                fputs("0A", f_out);
+                break;
+            case '-':
+                fputs("0B", f_out);
+                break;
+            case '*':
+                fputs("0C", f_out);
+                break;
+            case '/':
+                fputs("0D", f_out);
+                break;
+            case ';':
+                fputs("0E", f_out);
+                break;
+            default:
+                break;
+        }
+    }
     
 }
 
 void calculator()
 {
-    ;
+    FILE *fp;
+    char buffer[100];
+    char output[10][20];
+    int buffer_long;
+    fp=fopen("/Users/Andy/Downloads/PG5_testcase-1/output1.bin", "rb");
+    //store the data into buffer
+    fscanf(fp, "%s",buffer);
+    
+    buffer_long=(int)strlen(buffer);
+    //split the data by 0E
+    int j=0;//output[j][k]
+    for (int i=0,k=0; i<buffer_long; i++)
+    {
+        while (buffer[i]!='E')
+        {
+            output[j][k]=buffer[i];
+            k++;
+        }
+        output[j][k+1]='\0';
+        j++;
+    }
+    for (int i=0; i<j; i++) {
+        printf("%s",output[j]);
+    }
+
 }
 
 
