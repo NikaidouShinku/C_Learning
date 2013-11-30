@@ -16,6 +16,9 @@ void calculator();
 /*sub_function of compiler*/
 void trim(char *output);
 void print_out(char *output,FILE *f_out);
+
+/*sub_function of calculator*/
+void spliter(char *buffer,char *output);
  
 
 int main(int argc, const char * argv[])
@@ -227,31 +230,31 @@ void print_out(char *output,FILE *f_out)
 void calculator()
 {
     FILE *fp;
-    char buffer[100];
-    char output[10][20];
-    int buffer_long;
+    char buffer[100]={0};
+    char output[10][20]={0};
     fp=fopen("/Users/Andy/Downloads/PG5_testcase-1/output1.bin", "rb");
     //store the data into buffer
     fscanf(fp, "%s",buffer);
-    
-    buffer_long=(int)strlen(buffer);
     //split the data by 0E
-    int j=0;//output[j][k]
-    for (int i=0,k=0; i<buffer_long; i++)
-    {
-        while (buffer[i]!='E')
-        {
-            output[j][k]=buffer[i];
-            k++;
-        }
-        output[j][k+1]='\0';
-        j++;
-    }
-    for (int i=0; i<j; i++) {
-        printf("%s",output[j]);
-    }
+    spliter(buffer,output[0]);
+    
 
 }
+void spliter(char *buffer,char *output)
+{
+    int i=0;
+    char *token;
+    token = strtok(buffer,"E"); /*There are two delimiters here*/
+    while (token != NULL)
+    {
+        strcpy(&output[i], token);
+        token = strtok(NULL,"E");
+        i++;
+    }
+    // i = how many output[10] used, ex i=0 output[0~2] is used.
+
+}
+
 
 
 
