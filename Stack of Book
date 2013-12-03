@@ -1,0 +1,35 @@
+//
+//  main.c
+//  6.1
+//
+//  Created by Hsieh Yu Hua on 2013/12/3.
+//  Copyright (c) 2013年 Hsieh Yu Hua_NTHU_s102062210. All rights reserved.
+//
+#include <string.h>
+#include <stdio.h>
+int main(int argc, const char * argv[])
+{
+    char stack[100][20];
+    char bookname[20];
+    char operator[10]={0};
+    while (scanf("%s",operator)) {
+        static int i=0;
+        if (strcmp(operator,"end")==0)
+        {
+            return 0;
+        }
+        if (strcmp(operator, "push")==0)
+        {
+            gets(bookname);
+            strcpy(stack[i], bookname);
+            i++;
+        }
+        if (strcmp(operator, "pop")==0)
+        {
+            i--;
+            printf("%s",stack[i]);
+        }
+        
+    }
+    return 0;
+}
