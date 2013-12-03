@@ -10,10 +10,10 @@
 void bubblesort(double *data,int n);
 int main(int argc, const char * argv[])
 {
-    int num=0;
+    int num=0;//how many numbers shall be inputed
     while (scanf("%d",&num)!=EOF)
     {
-        double buffer[100]={0};
+        double buffer[100]={0};//use to store every number inputed
         if (num==0)//when denominator is zero
         {
             printf("0.0\n");
@@ -22,13 +22,13 @@ int main(int argc, const char * argv[])
         int i=0;
         for (i=0; i<num; i++)
         {
-            scanf("%lf",buffer+i);
+            scanf("%lf",buffer+i);//input number
         }
-        bubblesort(buffer,num);
-        if (num%2!=0){
+        bubblesort(buffer,num);//sort the sequence
+        if (num%2!=0){ //if the number of sequence isodd
             printf("%.1f\n",buffer[(int)num/2]);
         }
-        else
+        else// ~ is even,sum the two middle number and /2 as the result.
         {
             int qq=num/2;
             printf("%.1lf\n",(buffer[qq-1]+buffer[qq])/2);
