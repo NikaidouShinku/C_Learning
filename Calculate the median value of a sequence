@@ -27,7 +27,7 @@ int main(int argc, const char * argv[])
         bubblesort(buffer,num);//sort the sequence
         if (num%2!=0){ //if the number of sequence isodd
             printf("%.1f\n",buffer[(int)num/2]);
-        }
+        }//
         else// ~ is even,sum the two middle number and /2 as the result.
         {
             int qq=num/2;
