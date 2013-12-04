@@ -44,27 +44,19 @@ void sort(char (*data)[40],int i)
                 strcpy(data[k], data[k+1]);
                 strcpy(data[k+1], temp);
             }
-            else
+            else if(data[j][0] == data[j + 1][0])
             {
-                /*
-                int k=1;
-                while (data[j][k] == data[j + 1][k])
+                int s=1;
+                while (data[j][s] == data[j + 1][s])
                 {
-                    k++;
+                    s++;
                 }
-                if (data[j][k] > data[j + 1][k])
+                if (data[j][s] > data[j + 1][s])
                 {
                 strcpy(temp, data[k]);
                 strcpy(data[k], data[k+1]);
                 strcpy(data[k+1], temp);
                 }
-                else
-                {
-                    strcpy(temp, data[k+1]);
-                    strcpy(data[k+1], data[k]);
-                    strcpy(data[k], temp);
-                }
-                 */
             }
         }
     }
