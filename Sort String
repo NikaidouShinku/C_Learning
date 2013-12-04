@@ -38,25 +38,11 @@ void sort(char (*data)[40],int i)
     {
         for (int k=0; k<=j-1; k++)
         {
-            if (data[j][0] > data[j + 1][0])
+            if (strcmp(data[k],data[k+1])<0)
             {
                 strcpy(temp, data[k]);
                 strcpy(data[k], data[k+1]);
                 strcpy(data[k+1], temp);
-            }
-            else if(data[j][0] == data[j + 1][0])
-            {
-                int s=1;
-                while (data[j][s] == data[j + 1][s])
-                {
-                    s++;
-                }
-                if (data[j][s] > data[j + 1][s])
-                {
-                strcpy(temp, data[k]);
-                strcpy(data[k], data[k+1]);
-                strcpy(data[k+1], temp);
-                }
             }
         }
     }
