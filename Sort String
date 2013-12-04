@@ -1,0 +1,73 @@
+//
+//  main.c
+//  6.1
+//
+//  Created by Hsieh Yu Hua on 2013/12/3.
+//  Copyright (c) 2013年 Hsieh Yu Hua_NTHU_s102062210. All rights reserved.
+//
+#include <string.h>
+#include <stdio.h>
+void sort(char (*stack)[40],int i);
+int main(int argc, const char * argv[])
+{
+    char stack[100][40];
+    int i=0;
+
+    while (1)
+    {
+        if(gets(stack[i]))
+        {
+            i++;
+        }
+        else
+        {
+            sort(stack,i);
+            for (int j=0; j<i; j++)
+            {
+                printf("%s\n",stack[j]);
+            }
+            return 0;
+        }
+    }
+}
+
+void sort(char (*data)[40],int i)
+{
+    char temp[40];
+    for (int j=i-1; j>0; j--)
+    {
+        for (int k=0; k<=j-1; k++)
+        {
+            if (data[j][0] > data[j + 1][0])
+            {
+                strcpy(temp, data[k]);
+                strcpy(data[k], data[k+1]);
+                strcpy(data[k+1], temp);
+            }
+            else
+            {
+                /*
+                int k=1;
+                while (data[j][k] == data[j + 1][k])
+                {
+                    k++;
+                }
+                if (data[j][k] > data[j + 1][k])
+                {
+                strcpy(temp, data[k]);
+                strcpy(data[k], data[k+1]);
+                strcpy(data[k+1], temp);
+                }
+                else
+                {
+                    strcpy(temp, data[k+1]);
+                    strcpy(data[k+1], data[k]);
+                    strcpy(data[k], temp);
+                }
+                 */
+            }
+        }
+    }
+}
+
+
