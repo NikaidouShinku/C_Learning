@@ -9,8 +9,8 @@
 #include <stdio.h>
 int main(int argc, const char * argv[])
 {
-    char stack[100][20];
-    char bookname[20];
+    char stack[1000][50];
+    char bookname[100];
     char operator[10]={0};
     while (scanf("%s",operator)) {
         static int i=0;
@@ -21,13 +21,16 @@ int main(int argc, const char * argv[])
         if (strcmp(operator, "push")==0)
         {
             gets(bookname);
-            strcpy(stack[i], bookname);
+            strcpy(stack[i],bookname);
             i++;
         }
         if (strcmp(operator, "pop")==0)
         {
             i--;
-            printf("%s",stack[i]);
+            for (int j=1; j<strlen(stack[i]); j++) {
+                printf("%c",stack[i][j]);
+            }
+            printf("\n");
         }
         
     }
