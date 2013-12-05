@@ -20,10 +20,12 @@ struct chooped
 {
     char chopped_stack_element[each_slice_long];
     int times;//how many times the same word appeard.
-}chopped_stack[how_many_sliced];
+}chopped_stack[how_many_sliced],chopped_stack_table[how_many_sliced];
+//table is used to store every distinct word.
 
 int slash(char (*stack)[size_of_line],int i,struct chooped *chopped_stack);
 void sort(struct chooped *stack,int i);
+int tabalize(struct chooped *chopped_stack_table,struct chooped *chopped_stack,int chop_times);
 
 int main(int argc, const char * argv[])
 {
@@ -41,13 +43,15 @@ int main(int argc, const char * argv[])
             //the return value is how many times it chopped a sentence.
             //e.g.i am a lolicon = 4
             
+            tabalize(chopped_stack_table, chopped_stack,chop_times);
+            
             sort(chopped_stack,chop_times);
             ////bubble sort to sort each line alphabetically.
             //sort every element in chopped_stack into alphabetically.
             //and record how many times each word appeared.
             
             for (int k=0; k<chop_times; k++) {
-                printf("%s\n",chopped_stack[k].chopped_stack_element);
+                printf("%s %d\n",chopped_stack[k].chopped_stack_element,chopped_stack[k].times);
             }
             
             i++;//record how many stack used right now.
@@ -73,13 +77,10 @@ void sort(struct chooped *data,int i)
                 strcpy(data[k].chopped_stack_element, data[k+1].chopped_stack_element);
                 strcpy(data[k+1].chopped_stack_element, temp);
             }
-            else if (strcmp(data[k].chopped_stack_element,data[k+1].chopped_stack_element)==0)
-            {
-                
-            }
         }
     }
 }
+
 int slash(char (*stack)[size_of_line],int i,struct chooped *chopped_stack)
 {
     int j=0;
@@ -94,4 +95,21 @@ int slash(char (*stack)[size_of_line],int i,struct chooped *chopped_stack)
     }
     return j;
 }
+
+int tabalize(struct chooped *chopped_stack_table,struct chooped *chopped_stack,int chop_times)
+{
+    int i=0;//how many elements are in the new_table.=return value
+    for (int j=0; j<chop_times; j++)
+    {
+        do{
+
+        }while(strcmp(chopped_stack[j].chopped_stack_element, chopped_stack_table[i].chopped_stack_element)==0);
+
+
+    }
+
+    
+    return i;
+}
+
 
