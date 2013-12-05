@@ -5,65 +5,93 @@
 //  Created by Hsieh Yu Hua on 2013/12/3.
 //  Copyright (c) 2013年 Hsieh Yu Hua_NTHU_s102062210. All rights reserved.
 //
+
 #define how_many_line 100
 #define size_of_line 1024
+
+#define how_many_sliced 100
+#define each_slice_long 50
 #include <string.h>
 #include <stdio.h>
-void slash(char (*stack)[size_of_line],int i);
-void sort(char (*stack)[size_of_line],int i);
+
+//from line 36
+//this is used to stored every element chooped.
+struct chooped
+{
+    char chopped_stack_element[each_slice_long];
+    int times;//how many times the same word appeard.
+}chopped_stack[how_many_sliced];
+
+int slash(char (*stack)[size_of_line],int i,struct chooped *chopped_stack);
+void sort(struct chooped *stack,int i);
+
 int main(int argc, const char * argv[])
 {
-    char stack[how_many_line][size_of_line];
+    char stack[how_many_line][size_of_line]={0};
     int i=0;
     while (1)
     {
         if(gets(stack[i]))
         {
-            slash(stack,i);
-            sort(stack,i);
-            i++;//record how many stack used right now.
+            int chop_times=0;
             
-        }
-        else//While the ENTER is "EOF".
-        {
-            for (int j=0; j<i; j++)
-            {
-                printf("%s\n",stack[j]);
+            chop_times=slash(stack,i,chopped_stack);
+            //slash every input line into non-space condition,e.g.[I love u]==>[I][love][u]
+            //and store into chopped_stack;
+            //the return value is how many times it chopped a sentence.
+            //e.g.i am a lolicon = 4
+            
+            sort(chopped_stack,chop_times);
+            ////bubble sort to sort each line alphabetically.
+            //sort every element in chopped_stack into alphabetically.
+            //and record how many times each word appeared.
+            
+            for (int k=0; k<chop_times; k++) {
+                printf("%s\n",chopped_stack[k].chopped_stack_element);
             }
+            
+            i++;//record how many stack used right now.
+        }
+        else//While the ENTER is "EOF".end this program.
+        {
             return 0;
         }
     }
 }
 
 
-//bubble sort to sort each line alphabetically.
-void sort(char (*data)[size_of_line],int i)
+void sort(struct chooped *data,int i)
 {
-    char temp[size_of_line];
+    char temp[30];
     for (int j=i-1; j>0; j--)
     {
         for (int k=0; k<=j-1; k++)
         {
-            if (strcmp(data[k],data[k+1])<0)
+            if (strcmp(data[k].chopped_stack_element,data[k+1].chopped_stack_element)<0)
             {
-                strcpy(temp, data[k]);
-                strcpy(data[k], data[k+1]);
-                strcpy(data[k+1], temp);
+                strcpy(temp, data[k].chopped_stack_element);
+                strcpy(data[k].chopped_stack_element, data[k+1].chopped_stack_element);
+                strcpy(data[k+1].chopped_stack_element, temp);
+            }
+            else if (strcmp(data[k].chopped_stack_element,data[k+1].chopped_stack_element)==0)
+            {
+                
             }
         }
     }
 }
-
-//slash every input line into non-space condition,e.g.[I love u]==>[I][love][u]
-void slash(char (*stack)[size_of_line],int i)
+int slash(char (*stack)[size_of_line],int i,struct chooped *chopped_stack)
 {
-    char *temp;
-    char *target=" ";
-    temp = strtok(stack[i],target);
-    while (target!=NULL)
+    int j=0;
+    char *token;
+    char *seps=" ";
+    token = strtok( stack[i], seps );   /* Establish string and get the first token: */
+    while( token != NULL )
     {
-        printf ("%s\n",temp);
-        temp = strtok (NULL, target);
+        strcpy(chopped_stack[j].chopped_stack_element, token);
+        token = strtok( NULL, seps );   /* Get next token: */
+        j++;
     }
+    return j;
 }
 
