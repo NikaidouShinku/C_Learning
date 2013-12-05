@@ -1,0 +1,69 @@
+//
+//  main.c
+//  6.1
+//
+//  Created by Hsieh Yu Hua on 2013/12/3.
+//  Copyright (c) 2013年 Hsieh Yu Hua_NTHU_s102062210. All rights reserved.
+//
+#define how_many_line 100
+#define size_of_line 1024
+#include <string.h>
+#include <stdio.h>
+void slash(char (*stack)[size_of_line],int i);
+void sort(char (*stack)[size_of_line],int i);
+int main(int argc, const char * argv[])
+{
+    char stack[how_many_line][size_of_line];
+    int i=0;
+    while (1)
+    {
+        if(gets(stack[i]))
+        {
+            slash(stack,i);
+            sort(stack,i);
+            i++;//record how many stack used right now.
+            
+        }
+        else//While the ENTER is "EOF".
+        {
+            for (int j=0; j<i; j++)
+            {
+                printf("%s\n",stack[j]);
+            }
+            return 0;
+        }
+    }
+}
+
+
+//bubble sort to sort each line alphabetically.
+void sort(char (*data)[size_of_line],int i)
+{
+    char temp[size_of_line];
+    for (int j=i-1; j>0; j--)
+    {
+        for (int k=0; k<=j-1; k++)
+        {
+            if (strcmp(data[k],data[k+1])<0)
+            {
+                strcpy(temp, data[k]);
+                strcpy(data[k], data[k+1]);
+                strcpy(data[k+1], temp);
+            }
+        }
+    }
+}
+
+//slash every input line into non-space condition,e.g.[I love u]==>[I][love][u]
+void slash(char (*stack)[size_of_line],int i)
+{
+    char *temp;
+    char *target=" ";
+    temp = strtok(stack[i],target);
+    while (target!=NULL)
+    {
+        printf ("%s\n",temp);
+        temp = strtok (NULL, target);
+    }
+}
+
