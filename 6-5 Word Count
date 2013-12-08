@@ -50,9 +50,9 @@ int main(int argc, const char * argv[])
             //sort every element in chopped_stack into alphabetically.
             //and record how many times each word appeared.
             
-            for (int k=0; k<chop_times; k++) {
+            /*for (int k=0; k<chop_times; k++) {
                 printf("%s %d\n",chopped_stack[k].chopped_stack_element,chopped_stack[k].times);
-            }
+            }*/
             
             i++;//record how many stack used right now.
         }
@@ -98,17 +98,38 @@ int slash(char (*stack)[size_of_line],int i,struct chooped *chopped_stack)
 
 int tabalize(struct chooped *chopped_stack_table,struct chooped *chopped_stack,int chop_times)
 {
+    int has_or_no=0;
     int i=0;//how many elements are in the new_table.=return value
-    for (int j=0; j<chop_times; j++)
+    int j=1;
+    strcpy(chopped_stack_table[0].chopped_stack_element,chopped_stack[0].chopped_stack_element);
+    chopped_stack_table[0].times++;
+    int k=1;
+    do
     {
-        do{
-
-        }while(strcmp(chopped_stack[j].chopped_stack_element, chopped_stack_table[i].chopped_stack_element)==0);
-
-
+        for (int i=0; i<k; i++)
+        {
+            if (strcmp(chopped_stack_table[i].chopped_stack_element, chopped_stack[j].chopped_stack_element)==1)
+            {
+                //FIND THE SAME ELEMENT
+                chopped_stack_table[i].times++;
+                has_or_no++;
+                break;
+            }
+        }
+        if (has_or_no==0) {//NOT FIND THE SAME ELEMENT
+            strcpy(chopped_stack_table[k].chopped_stack_element,chopped_stack[j].chopped_stack_element);
+            chopped_stack_table[k].times++;
+            j++;
+            k++;
+            has_or_no=0;
+        }
+        j++;
+    }while(j<chop_times);
+    
+    for (int s=0; s<k; s++) {
+        printf("%s %d\n",chopped_stack_table[s].chopped_stack_element,chopped_stack_table[s].times);
     }
 
-    
     return i;
 }
 
