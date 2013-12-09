@@ -1,0 +1,51 @@
+//
+//  main.c
+//  6.1
+//
+//  Created by Hsieh Yu Hua on 2013/12/3.
+//  Copyright (c) 2013年 Hsieh Yu Hua_NTHU_s102062210. All rights reserved.
+//
+#include <string.h>
+#include <stdio.h>
+#define MAX 500
+void read_string(char *str,int *num);
+void big_add(int *sum,int *num1,int *num2);
+int main()
+{
+    int Big_num1[MAX],Big_num2[MAX],sum[MAX];
+    char str1[MAX],str2[MAX];
+    scanf("%s",str1);
+    scanf("%s",str2);
+    read_string(str1,Big_num1);
+    read_string(str2,Big_num2);
+    big_add(sum,Big_num1,Big_num2);
+    
+    
+
+    
+}
+
+
+/*
+ Algorithm:read_string(char *str,int *num)
+ Purpose:Save a string(char)into number array(int)
+ Pre:Given:a (char) string address,a (int) array address.
+ Post:None
+ Return:None
+ */
+void read_string(char *str,int *num)
+{
+    int i=0;
+    int lenth=(int)strlen(str);
+    memset(num, 0, sizeof(int)*MAX);
+    for (i=lenth-1;i>=0; i--)
+    {
+        num[i]=str[i]-'0';
+    }
+    
+}
+
+void big_add(int *sum,int *num1,int *num2)
+{
+    
+}
