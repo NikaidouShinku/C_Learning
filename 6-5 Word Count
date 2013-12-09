@@ -5,100 +5,70 @@
 //  Created by Hsieh Yu Hua on 2013/12/3.
 //  Copyright (c) 2013年 Hsieh Yu Hua_NTHU_s102062210. All rights reserved.
 //
-
-
-
-
 #include <string.h>
 #include <stdio.h>
-
-#define MAX 100
-typedef struct tagWordCounter
-{
-    char word[20];
-    int count;
-}WordCounter;
-
-WordCounter wc[MAX];
-int num=0;
-
-void sort(struct tagWordCounter *data,int num);
-
+#define MAX 500
+void read_string(char *str,int *num);
+void big_add(int *sum,int *num1,int *num2);
+void big_print(int *big);
 int main()
 {
-    
-    char wd[20];
-    int i;
-    char ch;
-begin:
-    
-    ///////////////
-    //// RESET/////
-    ///////////////
-    
-    for (int k=0; k<MAX; k++) {
-        memset(&(wc[k].count), 0, sizeof(wc[k].count));
-        strcpy(wc[k].word,"");
+    while(1){
+    int Big_num1[MAX],Big_num2[MAX],sum[MAX];
+    char str1[MAX],str2[MAX];
+        if(scanf("%s",str1)==EOF)return 0;
+        if(scanf("%s",str2)==EOF)return 0;
+    read_string(str1,Big_num1);
+    read_string(str2,Big_num2);
+    big_add(sum,Big_num1,Big_num2);
+    big_print(sum);
     }
-    num=0;
-    ///////////////
-    //// RESET/////
-    ///////////////
     
-    while(1)
-    {
-        if(scanf("%s",wd)==EOF)
-        {
-            return 0;
-        }
-        for(i=0;i<num;i++)
-            if(strcmp(wd,wc[i].word)==0)
-            {
-                wc[i].count++;
-                break;
-            }
-        if(i==num)
-        {
-            num++;
-            strcpy(wc[num-1].word,wd);
-            wc[num-1].count=1;
-        }
-        ch=getc(stdin);
-        if(ch==10 || ch==13)
-            break;
-    }
-    sort(wc, num);
-    
-    ///////////////////
-    ////PRINT OUTPUT///
-    ///////////////////
-    
-    for(i=0;i<num;i++)
-    {
-        printf("%s %d\n",wc[i].word,wc[i].count);
-    }
-    goto begin;
 }
 
-void sort(struct tagWordCounter *data,int num)
+
+
+/*
+ Algorithm:read_string(char *str,int *num)
+ Purpose:Save a string(char)into number array(int)
+ Pre:Given:a (char) string address,a (int) array address.
+ Post:None
+ Return:None
+ */
+void read_string(char *str,int *num)
 {
-    char temp[20];
-    int temp2;
-    for (int j=num-1; j>0; j--)
+    int i=0;
+    int lenth=(int)strlen(str);
+    memset(num, 0, sizeof(int)*MAX);
+    for (i=lenth-1;i>=0; i--)
     {
-        for (int k=0; k<=j-1; k++)
-        {
-            if (strcmp(data[k].word,data[k+1].word)>0)
-            {
-                strcpy(temp, data[k].word);
-                strcpy(data[k].word, data[k+1].word);
-                strcpy(data[k+1].word, temp);
-            
-                temp2=data[k].count;
-                data[k].count=data[k+1].count;
-                data[k+1].count=temp2;
-            
-            }
-        }
+        num[lenth-1-i]=str[i]-'0';
     }
+    
+}
+
+/*
+ Algorithm:big_add(int *sum,int *num1,int *num2)
+ Purpose:Add two big numbers into one big number
+ Pre:Given:sum address,num1 address,num2 address
+ Post:None
+ Return:None
+ */
+
+void big_add(int *sum,int *num1,int *num2)
+{
+    int i,carry;
+    for (i=0,carry=0; i<MAX; i++) {
+        sum[i]=num1[i]+num2[i]+carry;
+        carry=sum[i]/10;
+        sum[i]%=10;
+    }
+}
+
+void big_print(int *big)
+{
+    int i=MAX-1;
+    for(i=MAX-1;i>0 && big[i]==0; --i);
+    while(i>=0) printf("%d", big[i]), --i;
+    printf("\n");
 }
