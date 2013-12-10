@@ -1,0 +1,11 @@
+Function selection_sort(Data[n])
+  index i,j,max;
+  for i=0 to n-1;
+    max=i
+    for j=i+1 to n do 
+      if data[j]>data[max]
+        max=j
+      end if
+    exchange data[i] and data[max]
+    end for
+  end for
