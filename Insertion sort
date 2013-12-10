@@ -1,0 +1,22 @@
+Insertion sort
+//
+//  main.c
+//  6.1
+//
+//  Created by Hsieh Yu Hua on 2013/12/3.
+//  Copyright (c) 2013年 Hsieh Yu Hua_NTHU_s102062210. All rights reserved.
+//
+
+void Insertion_Sort(int s[], int n)
+{
+    int i,j;
+    for (i=2; i<n; i++) {
+        s[0]=s[i];//deam s[0] as a monitor
+        j=i-1;//the rightest location of sorted arrays
+        while (s[0]<s[j]) {
+            s[j+1]=s[j];//element move right.
+            j--;
+        }
+        s[j+1]=s[0];//insert
+    }
+}
