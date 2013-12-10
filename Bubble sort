@@ -1,0 +1,5 @@
+function sort(list)
+  for i=0 to list_length-1
+    for j=0 to list_length-i-1
+     if list[j]>list[j+1]
+      swap(list[j],list[j+1]);
