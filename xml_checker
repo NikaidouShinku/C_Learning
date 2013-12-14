@@ -1,0 +1,98 @@
+//
+//  main.c
+//  xml
+//
+//  Created by Hsieh Yu Hua on 2013/12/14.
+//  Copyright (c) 2013年 Hsieh Yu Hua_NTHU_s102062210. All rights reserved.
+//
+
+#include"Stack.h"
+#include<stdio.h>
+#include <string.h>
+void print(Item i)
+{
+    printf("该节点元素为%d\n",i);
+}
+int main()
+{
+    FILE *fp;
+    fp=fopen("/Users/Andy/Downloads/testcase/testcase3.txt","rt");
+    
+    char s[30]={0};//保存<?xml version="1.0" ?>用 無視
+    fgets(s, 30, fp);
+    
+    char buffer[1000]={0};
+    int j=0;
+    while ((buffer[j]=fgetc(fp))!=EOF)//把檔案全部保存到buffer去
+    {
+        j++;
+    }
+    
+    char temp[20];
+    int k=0,count=0,m=0;
+    unsigned int size=strlen(buffer);
+    while (count<size)
+    {
+        if((buffer[count]=='<')&&(buffer[count+1]!='/'))
+        {
+            k=count;
+            m=0;
+            do//把<xxx>複製到temp裡去,等再把temp丟入stack
+            {
+                temp[m]=buffer[k+1];
+                k++;
+                m++;
+                count++;
+            } while (buffer[k+1]!='>');
+            temp[m]='\0';
+            printf("我要入閘%s\n",temp);
+        }
+        
+        if((buffer[count]=='<')&&(buffer[count+1]=='/'))
+        {
+            k=count;
+            m=0;
+            do//把<xxx>複製到temp裡去,等再把temp丟入stack
+            {
+                temp[m]=buffer[k+1];
+                k++;
+                m++;
+                count++;
+            } while (buffer[k+1]!='>');
+            temp[m]='\0';
+            printf("我要出閘%s\n",temp);
+        }
+        
+        
+        count++;
+    }
+    
+    Stack *ps = InitStack();
+    int i,item;
+    printf("0-9依次入栈并输出如下：\n");
+    for(i=0;i<10;i++)
+    {
+        Push(ps,i);
+        GetTop(ps,&item);
+        printf("%d ",item);
+    }
+    
+    printf("\n从栈顶到栈顶遍历并对每个元素执行print函数：\n");
+    StackTraverse(ps,print);
+    
+    printf("栈中元素依次出栈并输出如下：\n");
+    for(i=0;i<10;i++)
+    {
+        Pop(ps,&item);
+        printf("%d ",item);
+    }
+    
+    ClearStack(ps);
+    if(IsEmpty(ps))
+        printf("\n将栈置空成功\n");
+    DestroyStack(ps);
+    printf("栈已被销毁\n");
+    
+    return 0;
+    
+}
